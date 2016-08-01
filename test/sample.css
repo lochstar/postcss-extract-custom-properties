@@ -1,0 +1,32 @@
+a {
+  color: var(--dashed-color);
+}
+
+code {
+  border-colorr: var(--divider-color);
+}
+
+.class1 {
+  color: var(--base-color);
+  font-size: var(--sizeH1);
+}
+
+.class2 {
+  color: var(--camelColor);
+}
+
+.class2:after {
+  background-color: var(--dashed-color);
+}
+
+.class3 {
+  color: var(--divider-color);
+}
+
+.class4:not(:first-child) {
+  color: var(--camelColor);
+}
+
+.classCamel {
+  color: var(--camelColor);
+}

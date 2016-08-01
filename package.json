@@ -1,0 +1,32 @@
+{
+  "name": "postcss-extract-custom-properties",
+  "version": "0.0.1",
+  "description": "PostCSS plugin Extract class names using CSS variables",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "postcss"
+  ],
+  "author": "Lochlan McBride <lochlan@gmail.com>",
+  "license": "MIT",
+  "repository": "lochstar/postcss-extract-property-selectors",
+  "bugs": {
+    "url": "https://github.com/lochstar/postcss-extract-custom-properties/issues"
+  },
+  "homepage": "https://github.com/lochstar/postcss-extract-custom-properties",
+  "dependencies": {
+    "postcss": "^5.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "eslint": "^3.1.1",
+    "eslint-config-postcss": "^2.0.2"
+  },
+  "scripts": {
+    "test": "ava && eslint *.js"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-postcss/es5"
+  }
+}

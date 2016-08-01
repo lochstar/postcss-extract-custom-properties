@@ -1,0 +1,35 @@
+{
+  "dashedColor": {
+    "color": [
+      "a"
+    ],
+    "background-color": [
+      ".class2:after"
+    ]
+  },
+  "dividerColor": {
+    "border-colorr": [
+      "code"
+    ],
+    "color": [
+      ".class3"
+    ]
+  },
+  "baseColor": {
+    "color": [
+      ".class1"
+    ]
+  },
+  "sizeH1": {
+    "font-size": [
+      ".class1"
+    ]
+  },
+  "camelColor": {
+    "color": [
+      ".class2",
+      ".class4:not(:first-child)",
+      ".classCamel"
+    ]
+  }
+}
