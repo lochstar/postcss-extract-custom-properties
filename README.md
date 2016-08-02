@@ -1,4 +1,4 @@
-# postcss-extract-custom-properties [![Build Status][ci-img]][ci]
+# postcss-extract-custom-properties [![Build Status](https://travis-ci.org/lochstar/postcss-extract-custom-properties.png)](https://travis-ci.org/postcss/lochstar/postcss-extract-custom-properties)
 
 [PostCSS] plugin to extract [CSS Custom Properties] information.
 
