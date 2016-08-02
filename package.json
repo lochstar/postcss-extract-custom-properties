@@ -15,9 +15,7 @@
     "url": "https://github.com/lochstar/postcss-extract-custom-properties/issues"
   },
   "homepage": "https://github.com/lochstar/postcss-extract-custom-properties",
-  "files": [
-    "src/index.js"
-  ],
+  "main": "index.js",
   "dependencies": {
     "postcss": "^5.1.0"
   },
