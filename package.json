@@ -1,6 +1,6 @@
 {
   "name": "postcss-extract-custom-properties",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "PostCSS plugin Extract class names using CSS variables",
   "keywords": [
     "postcss",
