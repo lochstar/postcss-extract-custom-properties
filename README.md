@@ -4,8 +4,8 @@
 
 ```json
 {
-  variableName: {
-    "css-property-name": ["#selector1", ".selector2", ...]
+  "variableName": {
+    "css-property-name": ["#selector1", ".selector2", "..."]
   }
 }
 ```
@@ -30,14 +30,14 @@ a {
 # In to this
 ```json
 {
-  baseColor: {
+  "baseColor": {
     "color": ["a", ".class2 li:first-child"],
     "background-color": [".class1"]
   },
-  sizeH1: {
+  "sizeH1": {
     "font-size": [".class1"]
   },
-  accentColor: {
+  "accentColor": {
     "border-color": [".class2 li:first-child"]
   }
 }
@@ -76,10 +76,10 @@ var baseColorString = `
 `;
 
 // Value to insert in place of placeholder
-var newBaseColor = '00CC00';
+var newBaseColor = '#00CC00';
 
 // Regex replace all occurances in string
-var re = new RegExp('@baseColor' 'g'); 
+var re = new RegExp('@baseColor', 'g'); 
 var newBaseColorString = baseColorString.replace(re, newBaseColor);
 
 // Target style eleemnt
