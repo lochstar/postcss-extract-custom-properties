@@ -28,7 +28,7 @@ test('outputs json data', t => {
       ]
     },
     "dividerColor": {
-      "border-colorr": [
+      "border-color": [
         "code"
       ],
       "color": [
