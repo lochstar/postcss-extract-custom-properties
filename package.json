@@ -1,16 +1,18 @@
 {
   "name": "postcss-extract-custom-properties",
-  "version": "0.0.2",
-  "description": "PostCSS plugin Extract class names using CSS variables",
+  "version": "0.0.3",
+  "description": "PostCSS plugin to extract CSS Custom Properties information.",
   "keywords": [
     "postcss",
     "css",
     "postcss-plugin",
-    "postcss"
+    "custom-properties",
+    "variables",
+    "vars"
   ],
   "author": "Lochlan McBride <lochlan@gmail.com>",
   "license": "MIT",
-  "repository": "lochstar/postcss-extract-property-selectors",
+  "repository": "lochstar/postcss-extract-custom-properties",
   "bugs": {
     "url": "https://github.com/lochstar/postcss-extract-custom-properties/issues"
   },

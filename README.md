@@ -10,7 +10,18 @@
 }
 ```
 
-# Turns this
+# Why?
+To create a fallback for browsers that do not support [CSS Custom Properties].
+
+Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
+
+# Installation
+```console
+npm install postcss-extract-custom-properties --save-dev
+```
+
+ Parses `input.css`:
+ 
 ```css
 a {
   color: var(--base-color);
@@ -27,7 +38,8 @@ a {
 }
 ```
 
-# In to this
+in to `output.json`
+
 ```json
 {
   "baseColor": {
@@ -43,10 +55,66 @@ a {
 }
 ```
 
-# Why?
-To create a fallback for browsers that do not support [CSS Custom Properties]. Useful for dynamic themeing.
+# Usage
+```js
+// dependencies
+var fs = require('fs');
+var postcss = require('postcss');
+var extractCustomProperties = require('postcss-extract-custom-properties');
 
-# Example
+// css to be processed
+var css = fs.readFileSync('input.css', 'utf8');
+
+// process css using postcss-extract-custom-properties
+postcss([extractCustomProperties({ output: './css-variables.json', minify: true })])
+  .process(css)
+  .then(function(result) {
+    var data = JSON.parse(result.json);
+    var totalVars = Object.keys(data).length;
+
+    console.log(`${totalVars} extracted: [${Object.keys(data)}]`);
+    console.log(`Saved to: ${opts.output}`);
+  });
+```
+
+### Options
+
+#### `output`
+
+Default: `'./property-selectors.json'`
+
+File to write JSON output to.
+
+#### `minify`
+
+Default: `false`
+
+Minifies the JSON output.
+
+```js
+postcss([extractCustomProperties({ minify: true })])
+  .process(css)
+```
+
+## Constraints
+
+- CSS Variables must not be used on a shortened property.
+
+```css
+.selector1 {
+  border-color: val(--base-color);      // good
+}
+
+.selector2 {
+  border: solid 1px val(--base-color);  // bad
+}
+```
+
+# Dynamic Custom Properties
+For browsers that do not support [CSS Custom Properties] and the `:root` selector.
+
+Parse `output.json` in to `<style>` elements for each variable.
+
 ```html
 <style id="var-baseColor">
   a, .class2 li:first-child { color: @baseColor; }
@@ -62,9 +130,9 @@ To create a fallback for browsers that do not support [CSS Custom Properties]. U
 </style>
 ```
 
-Replace the variable placeholders (`@baseColor`, `@sizeH1` and `@accentColor`).
+Replace the variable placeholders (`@baseColor`, `@sizeH1` and `@accentColor` in the example above).
 
-Now we can target all selectors that references this variable.
+Now we can target all selectors that reference these variables.
 
 To change the variable, we can replace the value programatically.
 
@@ -82,22 +150,11 @@ var newBaseColor = '#00CC00';
 var re = new RegExp('@baseColor', 'g'); 
 var newBaseColorString = baseColorString.replace(re, newBaseColor);
 
-// Target style eleemnt
+// Style eleemnt to update
 var baseColorStyleElem = document.getElementById('var-baseColor');
 
 // Replace innerHTML value with updated CSS
 baseColorStyleElem.innerHTML = newBaseColorString;
-```
-
-## Usage
-```js
-var extractCustomProperties = require('postcss-extract-custom-properties');
-
-postcss([
-  extractCustomProperties({
-    output: './your-output.json'
-  })
-])
 ```
 
 See [PostCSS] docs for examples for your environment.

@@ -1,0 +1,7 @@
+.class1 {
+  border-color: var(--base-color);
+}
+
+.class2 {
+  color: var(--camelColor);
+}
