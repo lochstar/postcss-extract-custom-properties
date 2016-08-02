@@ -1,4 +1,4 @@
-# postcss-extract-custom-properties
+# postcss-extract-custom-properties [![Build Status][ci-img]][ci]
 
 [PostCSS] plugin to extract [CSS Custom Properties] information.
 
