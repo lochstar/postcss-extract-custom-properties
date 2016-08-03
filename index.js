@@ -41,6 +41,12 @@ module.exports = postcss.plugin('postcss-extract-custom-properties', function(op
         var varName = value.replace('var(--', '').replace(')', '');
         var varNameCamel = dashedToCamel(varName);
 
+        // Skip if var() is not on a short-hand selector
+        if (varNameCamel.indexOf(' ') >= 0) {
+          console.log(`Ignoring: ${selectorName}: ${varName}`);
+          return;
+        }
+
         // varName exists in object
         if (selectors[varNameCamel]) {
           // Create array if it does not exist

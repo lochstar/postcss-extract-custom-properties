@@ -1,6 +1,6 @@
 {
   "name": "postcss-extract-custom-properties",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "PostCSS plugin to extract CSS Custom Properties information.",
   "keywords": [
     "postcss",

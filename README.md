@@ -102,11 +102,11 @@ postcss([extractCustomProperties({ minify: true })])
 
 ```css
 .selector1 {
-  border-color: val(--base-color);      // good
+  border-color: var(--base-color);      // good
 }
 
 .selector2 {
-  border: solid 1px val(--base-color);  // bad
+  border: solid 1px var(--base-color);  // bad
 }
 ```
 

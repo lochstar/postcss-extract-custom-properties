@@ -65,7 +65,7 @@ test('outputs minified json data', t => {
   return run(t, css, result, { output: './output-min.json', minify: true });
 });
 
-test('can handle multiple files', t => {
+test('handle multiple inputs', t => {
   var css1 = fs.readFileSync('./sample.css', 'utf8');
   var css2 = fs.readFileSync('./sample2.css', 'utf8');
 
@@ -110,4 +110,10 @@ test('can handle multiple files', t => {
   }
 }`;
   return run(t, [css1, css2], result, { output: './output-multiple.json' });
+});
+
+test('ignore invalid property', t => {
+  var css = '.class1 { border: 1px solid var(--base-color); }';
+  var result = '{}';
+  return run(t, css, result, { output: './test4-min.json', minify: true });
 });

@@ -1,4 +1,8 @@
-# 0.0.3 - 2016-08-
+# 0.0.4 - 2016-08-03
+- Fixed typo in README
+- Ignore invalid properties
+
+# 0.0.3 - 2016-08-02
 - Fixed tests
 - Added option to minify JSON output
 - Avoid duplicating selectors when parsing multiple inputs
