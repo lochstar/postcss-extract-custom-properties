@@ -9,7 +9,14 @@ function run(t, input, output, opts = { }) {
   return postcss([ plugin(opts) ]).process(input)
     .then(function(result) {
       t.deepEqual(output, result.json);
-      t.deepEqual(result.warnings().length, 0);
+    });
+}
+
+function runWithWarning(t, input, output, opts = { }) {
+  return postcss([ plugin(opts) ]).process(input)
+    .then(function(result) {
+      t.deepEqual(output, result.json);
+      t.deepEqual(result.warnings().length, 1);
     });
 }
 
@@ -115,5 +122,5 @@ test('handle multiple inputs', t => {
 test('ignore invalid property', t => {
   var css = '.class1 { border: 1px solid var(--base-color); }';
   var result = '{}';
-  return run(t, css, result, { output: './test4-min.json', minify: true });
+  return runWithWarning(t, css, result, { output: './test4-min.json', minify: true });
 });

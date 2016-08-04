@@ -13,11 +13,6 @@ function dashedToCamel(str) {
 module.exports = postcss.plugin('postcss-extract-custom-properties', function(opts) {
     opts = opts || {};
 
-    // Default output file
-    if (!opts.output) {
-      opts.output = './property-selectors.json';
-    }
-
     function plugin(css, result) {
       var selectors = {};
 
@@ -43,7 +38,7 @@ module.exports = postcss.plugin('postcss-extract-custom-properties', function(op
 
         // Skip if var() is not on a short-hand selector
         if (varNameCamel.indexOf(' ') >= 0) {
-          console.log(`Ignoring: ${selectorName}: ${varName}`);
+          result.warn(`Ignoring: ${selectorName}: ${varName}`, { node: selectorName, word: varName });
           return;
         }
 
@@ -74,8 +69,10 @@ module.exports = postcss.plugin('postcss-extract-custom-properties', function(op
         result.json = JSON.stringify(selectors, null, '  ');
       }
 
-      // Write JSON file
-      fs.writeFileSync(opts.output, result.json);
+      // Write JSON file if output set
+      if (opts.output) {
+        fs.writeFileSync(opts.output, result.json);
+      }
     }
 
   return plugin;

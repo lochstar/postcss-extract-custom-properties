@@ -69,9 +69,14 @@ var css = fs.readFileSync('input.css', 'utf8');
 postcss([extractCustomProperties({ output: './css-variables.json', minify: true })])
   .process(css)
   .then(function(result) {
+    // Display warnings
+    result.warnings().forEach(function(warn) {
+      console.warn(warn.toString());
+    });
+
+    // Result info
     var data = JSON.parse(result.json);
     var totalVars = Object.keys(data).length;
-
     console.log(`${totalVars} extracted: [${Object.keys(data)}]`);
     console.log(`Saved to: ${opts.output}`);
   });
@@ -81,9 +86,9 @@ postcss([extractCustomProperties({ output: './css-variables.json', minify: true 
 
 #### `output`
 
-Default: `'./property-selectors.json'`
+Default: `false`
 
-File to write JSON output to.
+Specify a path & filename to write output JSON to. e.g. `'./property-selectors.json'`
 
 #### `minify`
 
@@ -150,7 +155,7 @@ var newBaseColor = '#00CC00';
 var re = new RegExp('@baseColor', 'g'); 
 var newBaseColorString = baseColorString.replace(re, newBaseColor);
 
-// Style eleemnt to update
+// Style element to update
 var baseColorStyleElem = document.getElementById('var-baseColor');
 
 // Replace innerHTML value with updated CSS
