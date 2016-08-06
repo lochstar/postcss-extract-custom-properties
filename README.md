@@ -10,11 +10,6 @@
 }
 ```
 
-# Why?
-To create a fallback for browsers that do not support [CSS Custom Properties].
-
-Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
-
 # Installation
 ```console
 npm install postcss-extract-custom-properties --save-dev
@@ -66,39 +61,22 @@ var extractCustomProperties = require('postcss-extract-custom-properties');
 var css = fs.readFileSync('input.css', 'utf8');
 
 // process css using postcss-extract-custom-properties
-postcss([extractCustomProperties({ output: './css-variables.json', minify: true })])
+postcss([extractCustomProperties()])
   .process(css)
   .then(function(result) {
-    // Display warnings
-    result.warnings().forEach(function(warn) {
-      console.warn(warn.toString());
-    });
-
     // Result info
-    var data = JSON.parse(result.json);
+    var data = result.contents;
     var totalVars = Object.keys(data).length;
     console.log(`${totalVars} extracted: [${Object.keys(data)}]`);
-    console.log(`Saved to: ${opts.output}`);
+
+    // Display warnings
+    result.warnings().forEach(function(warn) {
+      console.warn(warn.toString());  // selector name: warn.node.parent.selector
+    });
+
+    // Write extracted vars to file
+    fs.writeFileSync('./output.json', data);
   });
-```
-
-### Options
-
-#### `output`
-
-Default: `false`
-
-Specify a path & filename to write output JSON to. e.g. `'./property-selectors.json'`
-
-#### `minify`
-
-Default: `false`
-
-Minifies the JSON output.
-
-```js
-postcss([extractCustomProperties({ minify: true })])
-  .process(css)
 ```
 
 ## Constraints
@@ -114,6 +92,11 @@ postcss([extractCustomProperties({ minify: true })])
   border: solid 1px var(--base-color);  // bad
 }
 ```
+
+# Why?
+To create a fallback for browsers that do not support [CSS Custom Properties].
+
+Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
 
 # Dynamic Custom Properties
 For browsers that do not support [CSS Custom Properties] and the `:root` selector.

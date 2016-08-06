@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.0.6 - 2016-08-06
+### Changed
+- `result.json` renamed to `result.contents`, returns object instead of string.
+
+### Fixed
+- More corrent use of warning API.
+- Tests tidied up.
+- Linted.
+
+### Deprecated
+- `output` and `minify` options deprecated. Will be removed in 0.1.0.
+
 ## 0.0.5 - 2016-08-04
 ### Changed
 - Use warning API for invalid properties.

@@ -1,79 +1,85 @@
-/* eslint-disable */
-
+// dependencies
 var postcss = require('postcss');
-var path = require('path');
 var fs = require('fs');
 
+// converts property-name to propertyName
 function dashedToCamel(str) {
-  return strCamel = str.replace(/-([a-z])/g, function (m, w) {
-    return w.toUpperCase();
-  });
+    return str.replace(/-([a-z])/g, function (m, w) {
+        return w.toUpperCase();
+    });
 }
 
-module.exports = postcss.plugin('postcss-extract-custom-properties', function(opts) {
+// creates JSON string for file output
+function toJSON(obj, minify) {
+    if (minify) {
+        return JSON.stringify(obj).replace(/ /g, '');
+    }
+    return JSON.stringify(obj, null, '  ');
+}
+
+// plugin
+module.exports = postcss.plugin('postcss-extract-custom-properties', (opts) => {
     opts = opts || {};
 
     function plugin(css, result) {
-      var selectors = {};
+        var vars = {};
 
-      // resolve custom properties (css variables)
-      css.walkDecls(function(decl) {
-        var value = decl.value;
+        // resolve custom properties (css variables)
+        css.walkDecls(function (decl) {
+            var value = decl.value;
 
-        // Skip values that don’t contain css var functions
-        if (!value || value.indexOf('var(') === -1) {
-          return;
+            // Skip values that don’t contain css var functions
+            if (!value || value.indexOf('var(') === -1) {
+                return;
+            }
+
+            // CSS selector name (.class1, #container2, etc.)
+            var selectorName = decl.parent.selector;
+
+            // CSS property name (border-color, font-size, etc.)
+            var propertyName = decl.prop;
+
+            // Extract variable name & convert to camelCase
+            // e.g. --base-color -> baseColor
+            var varName = value.replace('var(--', '').replace(')', '');
+            var varNameCamel = dashedToCamel(varName);
+
+            // Skip if var() is not on a short-hand selector
+            if (varNameCamel.indexOf(' ') >= 0) {
+                result.warn('Ignored short-hand property', {
+                    node: decl,
+                    word: varName
+                });
+                return;
+            }
+
+            // varName exists in object
+            if (vars[varNameCamel]) {
+                // Create array if it does not exist
+                if (!vars[varNameCamel][propertyName]) {
+                    vars[varNameCamel][propertyName] = [];
+                }
+
+                // Avoid duplicating vars
+                if (vars[varNameCamel][propertyName]
+                    .indexOf(selectorName) === -1) {
+                    vars[varNameCamel][propertyName].push(selectorName);
+                }
+
+            // Create new property
+            } else {
+                vars[varNameCamel] = {
+                    [propertyName]: [selectorName]
+                };
+            }
+        });
+
+        // DEPRECATED - Write JSON file if output set
+        if (opts.output) {
+            fs.writeFileSync(opts.output, toJSON(vars, opts.minify));
         }
-
-        // CSS selector name (.class1, #container2, etc.)
-        var selectorName = decl.parent.selector;
-
-        // CSS property name (border-color, font-size, etc.)
-        var propertyName = decl.prop;
-
-        // Extract variable name & convert to camelCase
-        // e.g. --base-color -> baseColor
-        var varName = value.replace('var(--', '').replace(')', '');
-        var varNameCamel = dashedToCamel(varName);
-
-        // Skip if var() is not on a short-hand selector
-        if (varNameCamel.indexOf(' ') >= 0) {
-          result.warn(`Ignoring: ${selectorName}: ${varName}`, { node: selectorName, word: varName });
-          return;
-        }
-
-        // varName exists in object
-        if (selectors[varNameCamel]) {
-          // Create array if it does not exist
-          if (!selectors[varNameCamel][propertyName]) {
-            selectors[varNameCamel][propertyName] = [];
-          }
-
-          // Avoid duplicate selectors
-          if (selectors[varNameCamel][propertyName].indexOf(selectorName) === -1) {
-            selectors[varNameCamel][propertyName].push(selectorName);
-          }
-  
-        // Create new property
-        } else {
-          selectors[varNameCamel] = {
-            [propertyName]: [selectorName]
-          };
-        }
-      });
-
-      // Format output JSON
-      if (opts.minify) {
-        result.json = JSON.stringify(selectors).replace(/ /g, '');
-      } else {
-        result.json = JSON.stringify(selectors, null, '  ');
-      }
-
-      // Write JSON file if output set
-      if (opts.output) {
-        fs.writeFileSync(opts.output, result.json);
-      }
+        result.contents = vars;
     }
 
-  return plugin;
+    return plugin;
 });
