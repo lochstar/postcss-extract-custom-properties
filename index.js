@@ -1,6 +1,5 @@
 // dependencies
 var postcss = require('postcss');
-var fs = require('fs');
 
 // converts property-name to propertyName
 function dashedToCamel(str) {
@@ -9,17 +8,8 @@ function dashedToCamel(str) {
     });
 }
 
-// creates JSON string for file output
-function toJSON(obj, minify) {
-    if (minify) {
-        return JSON.stringify(obj).replace(/ /g, '');
-    }
-    return JSON.stringify(obj, null, '  ');
-}
-
 // plugin
-module.exports = postcss.plugin('postcss-extract-custom-properties', (opts) => {
-    opts = opts || {};
+module.exports = postcss.plugin('postcss-extract-custom-properties', () => {
 
     function plugin(css, result) {
         var vars = {};
@@ -74,10 +64,6 @@ module.exports = postcss.plugin('postcss-extract-custom-properties', (opts) => {
             }
         });
 
-        // DEPRECATED - Write JSON file if output set
-        if (opts.output) {
-            fs.writeFileSync(opts.output, toJSON(vars, opts.minify));
-        }
         result.contents = vars;
     }
 

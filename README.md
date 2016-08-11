@@ -60,22 +60,23 @@ var extractCustomProperties = require('postcss-extract-custom-properties');
 // css to be processed
 var css = fs.readFileSync('input.css', 'utf8');
 
+// file path to write results
+var output = './build/output.json';
+
 // process css using postcss-extract-custom-properties
 postcss([extractCustomProperties()])
-  .process(css)
+  .process(combinedCss)
   .then(function(result) {
-    // Result info
     var data = result.contents;
-    var totalVars = Object.keys(data).length;
-    console.log(`${totalVars} extracted: [${Object.keys(data)}]`);
 
-    // Display warnings
+    // Deal with warnings
     result.warnings().forEach(function(warn) {
-      console.warn(warn.toString());  // selector name: warn.node.parent.selector
+      console.log(warn.word.toString());
     });
 
-    // Write extracted vars to file
-    fs.writeFileSync('./output.json', data);
+    // Write JSON string to file
+    var string = JSON.stringify(data).replace(/ /g, '');
+    fs.writeFileSync(output, string);
   });
 ```
 
