@@ -1,5 +1,5 @@
 // dependencies
-var postcss = require('postcss');
+var pcss = require('postcss');
 
 // converts property-name to propertyName
 function dashedToCamel(str) {
@@ -9,7 +9,7 @@ function dashedToCamel(str) {
 }
 
 // plugin
-module.exports = postcss.plugin('postcss-extract-custom-properties', () => {
+module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
 
     function plugin(css, result) {
         var vars = {};
