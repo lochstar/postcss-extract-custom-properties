@@ -50,6 +50,11 @@ in to `output.json`
 }
 ```
 
+# Why?
+To create a fallback for browsers that do not support [CSS Custom Properties].
+
+Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
+
 # Usage
 ```js
 // dependencies
@@ -93,11 +98,6 @@ postcss([extractCustomProperties()])
   border: solid 1px var(--base-color);  // bad
 }
 ```
-
-# Why?
-To create a fallback for browsers that do not support [CSS Custom Properties].
-
-Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
 
 # Dynamic Custom Properties
 For browsers that do not support [CSS Custom Properties] and the `:root` selector.
