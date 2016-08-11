@@ -58,9 +58,8 @@ module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
 
             // Create new property
             } else {
-                vars[varNameCamel] = {
-                    [propertyName]: [selectorName]
-                };
+                vars[varNameCamel] = {};
+                vars[varNameCamel][propertyName] = [selectorName];
             }
         });
 
