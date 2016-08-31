@@ -69,8 +69,9 @@ var css = fs.readFileSync('input.css', 'utf8');
 var output = './build/output.json';
 
 // process css using postcss-extract-custom-properties
-postcss([extractCustomProperties()])
-  .process(combinedCss)
+postcss()
+  .use(extractCustomProperties)
+  .process(css)
   .then(function(result) {
     var data = result.contents;
 

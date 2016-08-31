@@ -5,10 +5,10 @@ import plugin from '../index.js';
 
 function run(t, input, output, warnings = 0) {
     return postcss([ plugin() ]).process(input)
-      .then(function (result) {
-          t.deepEqual(output, result.contents);
-          t.deepEqual(result.warnings().length, warnings);
-      });
+        .then(function (result) {
+            t.deepEqual(output, result.contents);
+            t.deepEqual(result.warnings().length, warnings);
+        });
 }
 
 test('extracts custom properties from css', t => {
@@ -17,9 +17,10 @@ test('extracts custom properties from css', t => {
     return run(t, css, JSON.parse(result));
 });
 
-test('merges multiple inputs', t => {
+test('does not duplicate selectors', t => {
     var css1 = fs.readFileSync('./input.css', 'utf8');
     var css2 = fs.readFileSync('./input2.css', 'utf8');
+    var combined = css1 + css2;
 
     // Expected output from input.css & input2.css
     var result = {
@@ -33,7 +34,7 @@ test('merges multiple inputs', t => {
         },
         baseColor: {
             'color': ['.class1'],
-            'border-color': [',.class1']
+            'border-color': ['.class1']
         },
         sizeH1: {
             'font-size': ['.class1']
@@ -42,7 +43,7 @@ test('merges multiple inputs', t => {
             color: ['.class2', '.class4:not(:first-child)', '.classCamel']
         }
     };
-    return run(t, [css1, css2], result);
+    return run(t, combined, result);
 });
 
 test('ignores invalid properties', t => {
