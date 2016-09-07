@@ -2,12 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.x - UNRELEASED
+### Fixed
+- Removed `fs` from devDepdencies, built in module.
+- Skip variables defined inside a mixin function.
+
 ## 0.1.1 - 2016-08-31
 ### Fixed
 - Test allowed invalid CSS when handling multiple inputs.
-
-### Fixed
-Added `fs` to devDepdencies, required for tests.
 
 ## 0.1.0 - 2016-08-11
 ### Removed

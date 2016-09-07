@@ -43,6 +43,15 @@ module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
                 return;
             }
 
+            // Skip if var() is inside a mixin function
+            if (varName.indexOf('(') >= 0) {
+                result.warn('Ignored invalid variable name', {
+                    node: decl,
+                    word: varName
+                });
+                return;
+            }
+
             // varName exists in object
             if (vars[varNameCamel]) {
                 // Create array if it does not exist

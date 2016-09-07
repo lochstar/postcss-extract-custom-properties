@@ -51,11 +51,12 @@ test('ignores invalid properties', t => {
         .invalid { border: 1px solid var(--base-color); }
         .valid1 { border-color: var(--base-color); }
         .valid2 { border-color: var(--base-color); }
+        .invalid2 { color: contrast(var(--base-color)); }
     `;
     var result = {
         baseColor: {
             'border-color': ['.valid1', '.valid2']
         }
     };
-    return run(t, css, result, 1);
+    return run(t, css, result, 2);  // 2 warnings
 });
