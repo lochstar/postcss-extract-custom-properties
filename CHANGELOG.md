@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.1.x - UNRELEASED
+## 0.1.2 - 2016-11-10
 ### Fixed
 - Removed `fs` from devDepdencies, built in module.
 - Skip variables defined inside a mixin function.
+- Skip variables defined in keyframes.
 
 ## 0.1.1 - 2016-08-31
 ### Fixed

@@ -8,6 +8,9 @@ function dashedToCamel(str) {
     });
 }
 
+// ignore keyframe selectors
+var ignoredSelectors = ['to', 'from'];
+
 // plugin
 module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
 
@@ -46,6 +49,16 @@ module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
             // Skip if var() is inside a mixin function
             if (varName.indexOf('(') >= 0) {
                 result.warn('Ignored invalid variable name', {
+                    node: decl,
+                    word: varName
+                });
+                return;
+            }
+
+            // Skip keyframes
+            if (ignoredSelectors.indexOf(selectorName) > -1 ||
+                selectorName.indexOf('%') > -1) {
+                result.warn('Ignored variable in keyframe', {
                     node: decl,
                     word: varName
                 });
