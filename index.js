@@ -13,8 +13,8 @@ var ignoredSelectors = ['to', 'from'];
 
 // plugin
 module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
-
     function plugin(css, result) {
+        var count = 0;
         var vars = {};
 
         // resolve custom properties (css variables)
@@ -84,9 +84,17 @@ module.exports = pcss.plugin('postcss-extract-custom-properties', function () {
                     [propertyName]: [selectorName]
                 };
             }
+
+            // Incremenet selector count
+            count++;
         });
 
         result.contents = vars;
+        result.messages.push({
+            type: 'selector-count',
+            plugin: 'postcss-extract-custom-properties',
+            count: count
+        });
     }
 
     return plugin;

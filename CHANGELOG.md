@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.3 - UNRELEASED
+### Added
+- `selector-count` type to `result.messages`. Represents the total selectors extracted.
+
 ## 0.1.2 - 2016-11-10
 ### Fixed
 - Removed `fs` from devDepdencies, built in module.
