@@ -11,12 +11,13 @@
 ```
 
 # Installation
+
 ```console
 npm install postcss-extract-custom-properties --save-dev
 ```
 
  Parses `input.css`:
- 
+
 ```css
 a {
   color: var(--base-color);
@@ -51,11 +52,13 @@ in to `output.json`
 ```
 
 # Why?
+
 To create a fallback for browsers that do not support [CSS Custom Properties].
 
-Useful for dynamic themeing. See [Dynamic Custom Properties](dynamic-custom-properties).
+Useful for dynamic theming. See [Dynamic Custom Properties](#dynamic-custom-properties).
 
 # Usage
+
 ```js
 // dependencies
 var fs = require('fs');
@@ -101,6 +104,7 @@ postcss()
 ```
 
 # Dynamic Custom Properties
+
 For browsers that do not support [CSS Custom Properties] and the `:root` selector.
 
 Parse `output.json` in to `<style>` elements for each variable.
@@ -128,20 +132,20 @@ To change the variable, we can replace the value programatically.
 
 ``` js
 // Reference to CSS sring created from JSON
-var baseColorString = `
+const baseColorString = `
   a, .class2 li:first-child { color: @baseColor; }
   .class1 { background-color: @baseColor; }
 `;
 
 // Value to insert in place of placeholder
-var newBaseColor = '#00CC00';
+const newBaseColor = '#00CC00';
 
 // Regex replace all occurances in string
-var re = new RegExp('@baseColor', 'g'); 
-var newBaseColorString = baseColorString.replace(re, newBaseColor);
+const re = new RegExp('@baseColor', 'g');
+const newBaseColorString = baseColorString.replace(re, newBaseColor);
 
 // Style element to update
-var baseColorStyleElem = document.getElementById('var-baseColor');
+const baseColorStyleElem = document.getElementById('var-baseColor');
 
 // Replace innerHTML value with updated CSS
 baseColorStyleElem.innerHTML = newBaseColorString;
