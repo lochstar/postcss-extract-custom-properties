@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.3 - UNRELEASED
 ### Added
 - `selector-count` type to `result.messages`. Represents the total selectors extracted.
+- Updated `eslint` config.
+- Switched test runner from `ava` to `jest`.
 
 ## 0.1.2 - 2016-11-10
 ### Fixed

@@ -16,7 +16,7 @@
 npm install postcss-extract-custom-properties --save-dev
 ```
 
- Parses `input.css`:
+Parses `input.css`:
 
 ```css
 a {
@@ -61,22 +61,22 @@ Useful for dynamic theming. See [Dynamic Custom Properties](#dynamic-custom-prop
 
 ```js
 // dependencies
-var fs = require('fs');
-var postcss = require('postcss');
-var extractCustomProperties = require('postcss-extract-custom-properties');
+const fs = require('fs');
+const postcss = require('postcss');
+const extractCustomProperties = require('postcss-extract-custom-properties');
 
 // css to be processed
-var css = fs.readFileSync('input.css', 'utf8');
+const css = fs.readFileSync('input.css', 'utf8');
 
 // file path to write results
-var output = './build/output.json';
+const output = './build/output.json';
 
 // process css using postcss-extract-custom-properties
 postcss()
   .use(extractCustomProperties)
   .process(css)
   .then(function(result) {
-    var data = result.contents;
+    const data = result.contents;
 
     // Deal with warnings
     result.warnings().forEach(function(warn) {
@@ -84,7 +84,7 @@ postcss()
     });
 
     // Write JSON string to file
-    var string = JSON.stringify(data).replace(/ /g, '');
+    const string = JSON.stringify(data).replace(/ /g, '');
     fs.writeFileSync(output, string);
   });
 ```

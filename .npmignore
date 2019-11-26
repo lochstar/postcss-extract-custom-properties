@@ -6,3 +6,6 @@ npm-debug.log
 
 test/
 .travis.yml
+.vscode/
+.history/
+TODO.md
