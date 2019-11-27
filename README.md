@@ -74,13 +74,13 @@ const output = './build/output.json';
 // process css using postcss-extract-custom-properties
 postcss()
   .use(extractCustomProperties)
-  .process(css)
-  .then(function(result) {
+  .process(css, { from: undefined })
+  .then((result) => {
     const data = result.contents;
 
     // Deal with warnings
-    result.warnings().forEach(function(warn) {
-      console.log(warn.word.toString());
+    result.warnings().forEach((warn) => {
+      console.warn(`${warn.text}: ${warn.word.toString()} (${warn.node.parent.selector})`)
     });
 
     // Write JSON string to file
