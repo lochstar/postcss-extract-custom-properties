@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const postcss = require('postcss')
-const plugin = require('../index.js')
+
+const plugin = require('../src/index.js')
 
 async function run (input, output, opts, warnings = 0) {
   let result = await postcss([plugin(opts)]).process(input, { from: undefined })
@@ -44,7 +45,7 @@ it('does not duplicate selectors', async () => {
   await run(combined, result)
 })
 
-test('ignores invalid properties', async () => {
+it('ignores invalid properties', async () => {
   let css = `
     .invalid { border: 1px solid var(--base-color); }
     .valid1 { border-color: var(--base-color); }

@@ -11,7 +11,7 @@
     "vars"
   ],
   "scripts": {
-    "lint": "eslint --fix *.js test/*.js",
+    "lint": "eslint --fix src/*.js test/*.js",
     "test": "jest"
   },
   "author": "Lochlan McBride <lochlan@gmail.com>",
@@ -21,7 +21,7 @@
     "url": "https://github.com/lochstar/postcss-extract-custom-properties/issues"
   },
   "homepage": "https://github.com/lochstar/postcss-extract-custom-properties",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
     "postcss": "^5.1.0"
   },
