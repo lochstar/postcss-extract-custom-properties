@@ -147,11 +147,15 @@ const newBaseColorString = baseColorString.replace(re, newBaseColor);
 // Style element to update
 const baseColorStyleElem = document.getElementById('var-baseColor');
 
-// Replace innerHTML value with updated CSS
-baseColorStyleElem.innerHTML = newBaseColorString;
+// Replace innerText value with updated CSS
+baseColorStyleElem.innerText = newBaseColorString;
 ```
 
 See [PostCSS] docs for examples for your environment.
 
 [PostCSS]: https://github.com/postcss/postcss
 [CSS Custom Properties]: https://www.w3.org/TR/css-variables/
+
+## License
+
+MIT (http://www.opensource.org/licenses/mit-license.php)
